@@ -1,0 +1,26 @@
+# Create a deployment named hr-web-app using the image kodekloud/webapp-color with 2 replicas.
+# Name: hr-web-app
+# Image: kodekloud/webapp-color
+# Replicas: 2
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hr-web-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: hr-web
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - name: myapp
+        image: kodekloud/webapp-color
+      resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"

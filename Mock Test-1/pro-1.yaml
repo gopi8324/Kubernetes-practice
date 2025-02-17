@@ -1,0 +1,17 @@
+# Deploy a pod named nginx-pod using the nginx:alpine image.
+# Name: nginx-pod
+# Image: nginx:alpine
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+  labels:
+    name: myapp
+spec:
+  containers:
+  - name: myapp
+    image: nginx:alpine
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
