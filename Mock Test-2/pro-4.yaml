@@ -1,0 +1,47 @@
+# A pod definition file is created at /root/CKA/use-pv.yaml. 
+# Make use of this manifest file and mount the persistent volume called pv-1.
+# Ensure the pod is running and the PV is bound.
+# mountPath: /data
+# persistentVolumeClaim Name: my-pvc
+# persistentVolume Claim configured correctly
+# pod using the correct mountPath
+# pod using the persistent volume claim?
+
+
+#  pod created file at /root/CKA/use-pv.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: use-pv
+  name: use-pv
+spec:
+  containers:
+  - image: nginx
+    name: use-pv
+    volumeMounts:
+      - name: myvol
+        mountPath: "/data"
+  volumes:
+    - name: myvol
+      persistentVolumeClaim:
+        claimName: my-pvc
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
+
+#  Persistance Volume my-pvc.yaml
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: my-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Mi
+
+
+

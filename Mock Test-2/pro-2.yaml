@@ -1,0 +1,32 @@
+# Create a Pod called redis-storage with image: redis:alpine with a Volume of type emptyDir that lasts for the life of the Pod.
+# Specs on the below.
+# Pod named 'redis-storage' created
+# Pod 'redis-storage' uses Volume type of emptyDir
+# Pod 'redis-storage' uses volumeMount with mountPath = /data/redis
+
+# creating a pod with volume
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: redis-storage
+  labels:
+    name: redis
+spec:
+  containers:
+  - name: redis
+    image: redis:alpine
+    volumeMounts:
+        - name: config-vol
+          mountPath: /data/redis
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+  volumes:
+  - name: cache-volume
+    emptyDir:
+      sizeLimit: 500Mi
+
+
+# kubectl run redis-storage --image=redis:alpine --dry-run=client -oyaml > redis-storage.yaml

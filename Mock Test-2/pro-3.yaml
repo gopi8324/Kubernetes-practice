@@ -1,0 +1,27 @@
+# Create a new pod called super-user-pod with image busybox:1.28. Allow the pod to be able to set system_time.
+# The container should sleep for 4800 seconds.
+# Pod: super-user-pod
+# Container Image: busybox:1.28
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: super-user-pod
+  labels:
+    name: busybox
+spec:
+  containers:
+  - name: busybox
+    image: busybox:1.28
+    command:
+      - sleep
+      - "4800"
+    securityContext:
+      capabilities:
+        add:
+          - SYS_TIME
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+
